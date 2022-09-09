@@ -20,6 +20,9 @@ type Video = {
     author: Author,
     published: Date,
     updated: Date,
+    thumbnail?: string,
+    description: string,
+    views?: string,
 };
 type Channel = {
     id: string,
@@ -33,6 +36,7 @@ type Channel = {
 
 const BOX: VTuber[] = [
     { name: "GrayDa", uid: "UCx7GU8C3cr7vqp_SbS-8P-w" },
+    { name: "Lupo"  , uid: "UCTzWMDbXbQAEJufwbHMP31Q" },
     { name: "Yukari", uid: "UCgT4Oe--hch3cgHm2qGawYQ" },
     { name: "JinBee", uid: "UC9pXpmr_eYeVMGS0lVt5vuw" },
 ];
@@ -132,6 +136,9 @@ router
                                     },
                                     published: new Date(feed("published", el).text()),
                                     updated: new Date(feed("updated", el).text()),
+                                    thumbnail: feed("media\\:thumbnail", el).attr("url"),
+                                    description: feed("media\\:description", el).text(),
+                                    views: feed("media\\:statistics", el).attr("views"),
                                 }
                             }
                         ).toArray(),
