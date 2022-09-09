@@ -156,6 +156,15 @@ router
             )
         }
     )
+    .all(
+        "*",
+        async () => {
+            return new Response(
+                "Not Found",
+                { status: 404 }
+            )
+        }
+    )
 
 export default {
     fetch: router.handle
