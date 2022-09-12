@@ -150,7 +150,8 @@ router
                 JSON.stringify(channels),
                 {
                     headers: {
-                        'content-type': 'application/json;charset=UTF-8',
+                        "content-type": "application/json;charset=UTF-8",
+                        "access-control-allow-origin": "*",
                     }
                 }
             )
