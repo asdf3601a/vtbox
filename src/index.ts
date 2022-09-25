@@ -1,10 +1,6 @@
 import * as cheerio from 'cheerio';
 import { Router } from 'itty-router';
-
-type VTuber = {
-    name: string,
-    uid: string,
-};
+import { BOX } from './VTubers';
 
 // YT
 type Author = {
@@ -27,6 +23,7 @@ type Video = {
 type Channel = {
     id: string,
     channelId: string,
+    avatar?: string,
     title: string,
     alternate?: string,
     author: Author,
@@ -34,12 +31,6 @@ type Channel = {
     Videos: Video[],
 };
 
-const BOX: VTuber[] = [
-    { name: "GrayDa", uid: "UCx7GU8C3cr7vqp_SbS-8P-w" },
-    { name: "Lupo"  , uid: "UCTzWMDbXbQAEJufwbHMP31Q" },
-    { name: "Yukari", uid: "UCgT4Oe--hch3cgHm2qGawYQ" },
-    { name: "JinBee", uid: "UC9pXpmr_eYeVMGS0lVt5vuw" },
-];
 const RSS_BASE = "https://www.youtube.com/feeds/videos.xml?channel_id=";
 
 const router = Router();
@@ -115,6 +106,7 @@ router
                     {
                         id: feed("feed>id").text(),
                         channelId: feed("feed>yt\\:channelId").text(),
+                        avatar: VTB.avatar,
                         title: feed("feed>title").text(),
                         alternate: feed("feed>link").attr('href'),
                         author: {
